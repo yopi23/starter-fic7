@@ -14,10 +14,20 @@
 
         <div class="card-body">
             <p class="text-muted">We will send a link to reset your password</p>
-            <form method="POST">
+            <form method="POST" action="{{ route('password.email') }}">
+                @csrf
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
+                    <input id="email" type="email"
+                        class="form-control @error('email')
+                        is-invalid
+                    @enderror"
+                        name="email" tabindex="1" autofocus>
+                    @error('email')
+                        <div class="invalid-feedback">
+                            {{ $mesassage }}
+                        </div>
+                    @enderror
                 </div>
 
                 <div class="form-group">
